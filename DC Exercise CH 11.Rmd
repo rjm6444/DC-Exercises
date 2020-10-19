@@ -1,0 +1,110 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# DC Exercise: CH 11
+
+## 11.1, 11.2, 11.6
+
+### 11.1
+By using the join() function, we are inputing two data frames and outputting one, but a data frame will always be the output.  With reduction functions, you're taking one data frame and reducing the data in it.  While using the join() function, we are matching variables that are shared between the two data frames.
+
+
+### 11.2
+The reason that simply copying and pasting won't work is because, in order for the variables to match or appear, there needs to be similar variables in the other table.  None of the variable names match each other from the tables so the two won't join.  However, this could be solved by renaming name or country to be the same thing, since the cases under those variables are the same.
+
+### 11.6
+```{r}
+library(DataComputing)
+data("ZipGeography")
+```
+
+#### 1.)
+```{r}
+ZipGeography %>%
+  group_by(County)%>%
+  summarise(Total = n())
+```
+1910 counties
+
+#### 2.)????
+```{r}
+CityState <-
+  ZipGeography%>%
+  group_by(CityName)%>%
+  summarise(Count = n_distinct(State))%>%
+  arrange(desc(Count))%>%
+  filter(Count > 10)
+CityState
+```
+
+#### 3.)
+```{r}
+#Finding total state population
+StatePopulation <-
+  ZipGeography%>%
+  group_by(State)%>%
+  summarise(totalStatePop = sum(Population, na.rm = TRUE))
+StatePopulation
+```
+```{r}
+#Finding total city population per state
+CityPop <-
+  ZipGeography%>%
+  group_by(State, CityName)%>%
+  summarise(totalCity = sum(Population, na.rm = TRUE))
+CityPop
+```
+```{r}
+# Creating a table using join function to see city population and state population
+CP <-
+  CityPop%>%
+  left_join(StatePopulation, by = "State")
+CP
+```
+```{r}
+#Mutating data to see the cities where city population is greater than 5% of state population
+PopPercent <-
+  CP %>%
+  mutate(TopCities = totalCity/totalStatePop)%>%
+  filter(TopCities > .05)%>%
+  group_by(CityName, TopCities)%>%
+  summarise()
+PopPercent
+```
+
+```{r}
+#Which of the above named cities is in the most states
+Popular <-
+  CityState%>%
+  inner_join(PopPercent)
+Popular
+```
+
+
+
+#### 4.)
+```{r}
+ZipGeography%>%
+  group_by(State)%>%
+  summarise(No.Time = n_distinct(Timezone))%>%
+  filter(No.Time > 1)
+```
+
+#### 5.)
+```{r}
+ZipGeography%>%
+  group_by(CityName)%>%
+  summarise(Timezones = n_distinct(Timezone))%>%
+  filter(Timezones > 1)
+```
+
+#### 6.)
+```{r}
+ZipGeography%>%
+  group_by(County)%>%
+  summarise(Timezones2 = n_distinct(Timezone))%>%
+  filter(Timezones2 > 1)
+```
+

@@ -1,0 +1,95 @@
+---
+title: "R Notebook"
+output: html_notebook
+name: "Ryan Murphy"
+---
+
+## Section 5
+
+#### 5.1)
+
+```{r}
+library(mosaicData)
+library(DataComputing)
+ggplot(data=CPS85,aes(x=sex,y=wage ,fill=married))+geom_bar(stat='identity',position='dodge', width=.9)+ facet_wrap(~race,ncol=3) 
+
+```
+
+
+## Section 6
+
+### 6.1)
+
+#### (1.)
+Suspension growth for all 4 graphs, and adhesion growth for all 4 as well.
+#### (2.)
+No, the adhesion growth percentage changes for all four graphs.
+#### (3.)
+A star glyph is used to represent any outliers in the data.
+The color of the line graphs in the graphs themselves, which is red.
+
+### 6.2)
+
+#### (1.)
+Guides: y-axis(Log enzyme), x-axis(gene), x-axis(target), legend(flux), legend(molecule)
+#### (2.)
+The dots vary in color depending on the molecule type.  Also, whether the dot is colored in or simply outlined depends on the either positive flux, or no flux.
+#### (3.)
+The two variables that set the frame are Log enzyme and gene
+#### (4.)
+Two variables would be the gene and the target.  These set the horizontal axis and divide the genes into their respected target.
+
+### 6.3)
+
+#### (1.)
+The two graphical attributes for the glyphs would be line segment going through a dot, and a star.  The line segment portion represents low, high while the dot represents center.  The star represents the signif column.
+#### (2.)
+The variable the represents the y-axis would be the low vs high portion of the summary data, while the x-axis simply represents the type of protein.
+#### (3.)
+Color is an attribute.  Red represents plus polarity while blue represents minus polarity.
+#### (4.)
+Low vs High cell density is one of the guides displayed.  As well as defining the minus ploarity cells.  The protein name is next to each graphical display.
+
+### 6.4)
+
+#### (1.)
+The frame is the time period it will take along with the different bus that will need to be taken from one stop to the other.
+#### (2.)
+To represent the time period it will take, a horizontal line is used.  The different bus stops is represented by specific colors.
+#### (3.)
+The shape of the glyph(horizontal line) represents the time period the whole trip will take. The colors represent the specific stops and bus switches needed to for the whole trip.  The position of the glyph merely indicates the start time between each bus stop
+#### (4.)
+The only guides that is being used is the color to represent a specific bus that needs to be take.  The bus that is being taken is stated under the colored line.
+
+### 6.5)
+The variables that define the frame are:
+State and Polling Organization
+
+### 6.6)
+The glyph and its graphical attributes:
+Glyph = Rectangle
+Graphical Attribute = Color and Text
+
+### 6.7)
+Sets order for categorical variable for Vertical variable:
+The Polling organization (Poll)
+
+### 6.8)
+Guide for the indicated graphical attribute:
+d.) Vertical scale: Color band
+e.) Color: Color band
+
+### 6.9)
+```{r}
+Small <- 
+  NCHS %>% 
+  sample_n(size=5000)
+ggplot(data=Small,aes(x=bmi,y=weight))+geom_point()+aes(colour=smoker)
+```
+
+### 6.10)
+#### (a.)
+Internal Layer: Each case is represented by a thin line in the middle that stems out into the 4 categories;Bacteria, Archaea, Viruses and Eukaryotes.
+External Layer: After each case is identified as being one of the four categories in the internal layer, they stem out even more after being identified.  The cases are then categorized by the color represented by the guide on the left.
+#### (b.)
+There is no scale for this graph.  The space between the internal cases is merely showing that there is no link between them, which gives the impression that there is some type of scaling.

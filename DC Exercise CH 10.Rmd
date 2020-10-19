@@ -1,0 +1,160 @@
+---
+title: "R Notebook"
+author: "Ryan Murphy"
+output: html_notebook
+---
+
+## DC Exercises: 10.1-10.7
+
+### 10.1
+
+#### 1.)
+Summary Function
+
+#### 2.)
+Data Verb
+
+#### 3.)
+Transformation
+
+#### 4.)
+Reduction Function
+
+#### 5.)
+Data verb
+
+#### 6.)
+Summary function
+
+#### 7.)
+Data verb
+
+#### 8.)
+Summary function
+
+
+### 10.2
+
+#### 1.)
+We will use the mutate() function to find the ratio
+
+#### 2.)
+Use arrange() to sort the data
+
+#### 3.)
+filter() data verb will be used
+
+#### 4.)
+Use select() to subset columns A and X
+
+
+### 10.3
+
+#### 1.)
+Use the nrow() function to find the total number of cases for a data frame
+
+#### 2.)
+Use select() to see variable names in a data table
+
+#### 3.)
+Use the View() function to see data table
+
+#### 4.)
+library() loads a package into your R session
+
+#### 5.) 
+Using group_by() function
+
+
+### 10.4
+
+#### 1.)
+Using the arrange() function to order the data in ascending order by count.  Also arrange sex to be female first, then male second.
+
+#### 2.)
+For this data set, it seems we are only using the arrange function to specifically look at females.  Or, it could be possible that we are using the filter function to see everyone above the year 1920.
+
+#### 3.)
+This data set could be only viewing the males in the data set using the filter function.
+
+#### 4.)
+In order to get this output  it seems like we need to group by count, then use summarise to get the sum of all the counts.  Change count to total.
+
+#### 5.)
+For this output, we need to group by name and count for both male and female.
+
+
+### 10.5
+```{r}
+library(DataComputing)
+data("Minneapolis2013")
+```
+
+#### 1.)
+My strategy for doing this problem is to first group by First and Second.  Since we are specifically looking at total, I will then use summarise to get the total count for each candidate.  In order to see how many voted for the same people first and second, I need to use a filter and say First == Second.
+```{r}
+Minneapolis2013 %>%
+  group_by(First, Second) %>%
+  summarise(Total = n()) %>%
+  filter(First == Second)
+```
+
+#### 2.)
+Same process as the first problem.  Except I will use an arrange function now to get the data in descending order to get the top three.  I will also use the head function so that I can only see the top 3
+```{r}
+Minneapolis2013 %>%
+  group_by(First, Second) %>%
+  summarise(Total = n()) %>%
+  filter(First == Second)%>%
+  arrange(desc(Total))%>%
+  head(3)
+```
+
+#### 3.)
+We are gonna need to filter the data to see the people who voted for Ole Savior.  After that we need to summarise the data and find the total.  The we use arrange to see the top 3 second choices.
+```{r}
+Minneapolis2013 %>%
+  group_by(First, Second) %>%
+  filter(First == "OLE SAVIOR") %>%
+  summarise(Total = n()) %>%
+  arrange(desc(Total)) %>%
+  head(3)
+```
+
+
+### 10.6
+```{r}
+library(ggplot2)
+data("diamonds")
+```
+
+#### 1.)
+```{r}
+diamonds %>%  
+  group_by(color) %>% 
+  summarise("mean" = sum(mean(carat))) %>% 
+  arrange(desc(mean)) %>% 
+  head(1)
+
+```
+
+#### 2.)
+```{r}
+diamonds %>%  
+  group_by(clarity) %>% 
+  summarise("mean" = sum(mean(table/carat))) %>% 
+  arrange(desc(mean)) %>% 
+  head(1)
+
+```
+
+
+### 10.7
+```{r}
+Minneapolis2013 %>%
+  group_by(First) %>%
+  summarise(count = n()) %>%
+  filter(count < 5000)
+  
+```
+
