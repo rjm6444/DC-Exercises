@@ -1,0 +1,93 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## CH 8: 8.1, 8.2, 8.3
+
+### 8.1
+
+* 1.) geom_point() adds a layer of glyphs
+
+* 2.) geom_histogram() adds a layer of glyphs
+
+* 3.) ggplot() constructs a graphic frame
+
+* 4.) scale_y_log10() changes the scale for the frame
+
+* 5.) ylab() Sets an axis label
+
+* 6.) facet_wrap() divides the frame into facets
+
+* 7.) geom_segment() adds a layer of glyphs
+
+* 8.) xlim() changes the scale for the frame
+
+* 9.) facet_grid() divides the frame into facets
+
+
+
+### 8.2
+```{r}
+library(DataComputing)
+library(ggplot2)
+library(mosaicData)
+data("CPS85")
+```
+#### a)
+```{r}
+CPS85%>%
+  ggplot(aes(x = wage)) +
+  geom_density(aes(color = sex))+
+  facet_wrap(~ married)
+```
+
+#### b)
+```{r}
+CPS85%>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_smooth(aes(color = sex)) +
+  facet_grid(married ~ .)
+```
+
+#### c)
+```{r}
+CPS85 %>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_smooth(aes(color = sex)) +
+  facet_wrap( ~ sector)
+```
+
+
+
+### 8.3
+
+####a.)
+```{r}
+CPS85%>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_point()
+```
+
+####b)
+```{r}
+CPS85%>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_point(aes(shape = sex))
+```
+
+####c)
+```{r}
+CPS85%>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_point(aes(shape = sex))+
+  facet_grid(married ~.)
+```
+
+####d)
+```{r}
+CPS85%>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_point(aes(shape = married))
+```
+
