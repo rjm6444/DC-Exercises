@@ -1,0 +1,26 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# DC Exercise CH 18: 18.1
+
+
+## 18.1
+
+### (1.)
+
+Variables: Built Before/After 1988, Bathrooms, Fireplace, # of houses, price, square feet.
+
+### (2.)
+
+Yes, the number of bathrooms changes the price. For more than 1.5 bathrooms, the price is 179796, While the price for a house with less than 1.5 bathrooms is 151424
+
+### (3.)
+
+The difference between prices is 179796 - 151424 which equals
+28372
+
+### (4.)
+
+Based on the prices with or without a fireplace, it appears there is an association.  But there are other variables that impact the price, like the square footage being more or less than 2816 sqft.
